@@ -62,4 +62,16 @@ public class MainMenuScript : MonoBehaviour
             Debug.Log("Exception in OpenMainMenu = " + ex.ToString());
         }
     }
+
+    // open loading screen scene if user cliks quit button
+    public void quitGame()
+    {
+        try
+        {
+            SceneManager.LoadScene(GameConstants.LOADING_SCENE);
+        }catch(Exception ex)
+        {
+            Debug.Log(ex.ToString());
+        }
+    }
 }

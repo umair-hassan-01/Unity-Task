@@ -2277,7 +2277,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1555489576}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7174398549055904425}
+        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
+        m_MethodName: quitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1555489576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3265,3 +3277,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nakamaInstance: {fileID: 0}
+--- !u!114 &7174398549055904427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174398549055904424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b46bb3a91db4f56ba96d58916d76fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
