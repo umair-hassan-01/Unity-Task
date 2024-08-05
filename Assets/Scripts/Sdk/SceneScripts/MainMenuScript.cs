@@ -1,36 +1,65 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System;
+using Nakama;
+using Nakama.TinyJson;
+using UnityEngine.UI;
 
 public class MainMenuScript : MonoBehaviour
 {
+
+    private CustomNakamaConnection nakamaInstance;
+    private LeaderBoardScript leaderBoardScript;
+
+    public GameObject tilePrefab;
+    public GameObject leaderBoardContent;
+
+    private ControlUtils controlUtils;
     // Use this for initialization
     void Start()
     {
-
+        nakamaInstance = CustomNakamaConnection.Instance;
+        leaderBoardScript = gameObject.AddComponent<LeaderBoardScript>();
+        controlUtils = new ControlUtils();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    private string[] MenuItems = { GameConstants.LEADERBOARD_ID, GameConstants.MAIN_MENU_ID};
 
-    }
 
-    public void OpenLeaderBoard()
+    public async void OpenLeaderBoard()
     {
         try
         {
-            Debug.Log("start hiding menu");
-            GameObject.Find("MainMenuCanvas").SetActive(false);
-            Debug.Log("first step done");
-            GameObject.Find("LeaderBoardCanvas").SetActive(true);
-            string som =    "LeaderBoardCanvas";
-            Debug.Log("Done with hiding");
+            // first enable the leaderboard canvas
+            controlUtils.SetComponentActive(0,this.MenuItems);
+            if(!tilePrefab || !leaderBoardContent)
+            {
+                Debug.LogError("tileprefab or leaderboard content is null in main menu script");
+                return;
+            }
+
+            leaderBoardScript.setTilePrefab(tilePrefab, leaderBoardContent);
+            Payload payload = await leaderBoardScript.loadLeaderBoardData(GameConstants.GLOBAL_LEADER_BOARD);
+            await leaderBoardScript.PopulateLeaderBoard(payload);
+            
         }
         catch(Exception ex)
         {
             Debug.Log("Exception in OpenLeaderBoard = " + ex.ToString());
+        }
+    }
+
+    public void OpenMainMenu()
+    {
+        try
+        {
+            controlUtils.SetComponentActive(1 , this.MenuItems);
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("Exception in OpenMainMenu = " + ex.ToString());
         }
     }
 }

@@ -8,46 +8,26 @@ using UnityEngine.SceneManagement;
 public class ScreenLoading : MonoBehaviour
 {
 
-    private AuthManager Auth = new AuthManager();
-
-    public async Task sayHelo()
-    {
-        Debug.Log("I will send it wait for some time bro");
-        await Task.Delay(3 * 1000);
-        // here load the new scene .....
-        SceneManager.LoadScene(1);
-        Debug.Log("say helo is finished");
-    }
-
-    public async Task AuthenticateUser()
+    public async void authenticateUser()
     {
         try
         {
-            Debug.Log("Start user auth");
-            
-            Debug.Log("Finish user auth");
-            
-        }catch(Exception e)
+            AuthManager manager = new AuthManager(CustomNakamaConnection.Instance);
+            await manager.AuthenticateUserDevice();
+            Debug.Log("User is authenticated");
+            SceneManager.LoadScene("MenuScene");
+        }
+        catch (Exception ex)
         {
-            Debug.Log("Exception in auth");
-
+            Debug.Log("Exception in authenticate user from screen loading");
+            Debug.Log(ex.ToString());
         }
     }
+
     // Use this for initialization
     async void Start()
     {
-        try
-        {
-            Debug.Log("Start User Auth");
-            //await AuthenticateUser();
-            await Auth.AuthenticateUserDevice();
-            Debug.Log("finish user auth");
-            SceneManager.LoadScene(1);
-
-        }catch(Exception ex)
-        {
-            Debug.Log("Exception in user auth = " + ex.Message);
-        }
+        
     }
 
     // Update is called once per frame for screen loading

@@ -1,13 +1,17 @@
 ﻿<Properties StartupConfiguration="{32C3BDE6-E125-3128-82C1-25D0441455A3}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Sdk/SceneScripts/NewMonoBehaviour.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Sdk/SceneScripts/MainMenuScript.cs">
     <Files>
-      <File FileName="Assets/Scripts/Sdk/Auth/AuthScript.cs" Line="13" Column="6" />
-      <File FileName="Assets/Scripts/Sdk/ConnectionModule/ClientConnection.cs" Line="3" Column="30" />
-      <File FileName="Assets/NakamaConnection/NakamaServerConnection.cs" Line="15" Column="1" />
-      <File FileName="Assets/Scripts/Sdk/LoadingScript/NewClass.cs" Line="8" Column="1" />
-      <File FileName="Assets/Scripts/Sdk/LoadingScript/NewMonoBehaviour.cs" Line="41" Column="42" />
-      <File FileName="Assets/Scripts/Sdk/Auth/NewClass.cs" Line="46" Column="18" />
-      <File FileName="Assets/Scripts/Sdk/SceneScripts/NewMonoBehaviour.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Sdk/Auth/AuthScript.cs" Line="11" Column="1" />
+      <File FileName="Assets/NakamaConnection/NakamaServerConnection.cs" />
+      <File FileName="Assets/Scripts/Sdk/Auth/AuthManager.cs" Line="25" Column="8" />
+      <File FileName="Assets/Scripts/Sdk/SceneScripts/MainMenuScript.cs" Line="11" Column="2" />
+      <File FileName="Assets/Scripts/Sdk/LoadingScript/ScreenLoading.cs" />
+      <File FileName="Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInput.cs" />
+      <File FileName="Assets/NewBehaviourScript.cs" />
+      <File FileName="Assets/Scripts/Sdk/GameConstants.cs" Line="15" Column="1" />
+      <File FileName="Assets/Scripts/Sdk/LeaderBoardModule/LeaderBoardScript.cs" Line="85" Column="10" />
+      <File FileName="Assets/Scripts/Sdk/Utils/Payload.cs" Line="10" Column="30" />
+      <File FileName="Assets/Scripts/Sdk/Utils/ControlUtils.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,14 +19,20 @@
           <Node name="My project" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="NakamaConnection" expanded="True" />
+              <Node name="Packages" expanded="True">
+                <Node name="Nakama" expanded="True">
+                  <Node name="Editor" expanded="True" />
+                </Node>
+              </Node>
               <Node name="Scripts" expanded="True">
                 <Node name="Sdk" expanded="True">
                   <Node name="Auth" expanded="True" />
-                  <Node name="ConnectionModule" expanded="True" />
+                  <Node name="LeaderBoardModule" expanded="True" />
                   <Node name="LoadingScript" expanded="True" />
                   <Node name="SceneScripts" expanded="True">
-                    <Node name="NewMonoBehaviour.cs" selected="True" />
+                    <Node name="MainMenuScript.cs" selected="True" />
                   </Node>
+                  <Node name="Utils" expanded="True" />
                 </Node>
               </Node>
             </Node>
@@ -33,7 +43,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="84e46c19-750a-4c7b-a9fc-1f3611392ab4" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="e2176dbd-2499-47fc-bd6d-ee1cb9370b95" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
