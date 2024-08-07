@@ -11,7 +11,7 @@ public class LeaderBoardScript : MonoBehaviour
 {
     private GameObject tilePrefab;
     private GameObject leaderBoardContent;
-
+    
     public CustomNakamaConnection nakamaInstance;
 
     public void setTilePrefab(GameObject tilePrefab , GameObject leaderBoardContent)
@@ -106,7 +106,7 @@ public class LeaderBoardScript : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    private async void Awake()
+    private void Awake()
     {
         try
         {

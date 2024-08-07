@@ -25,7 +25,7 @@ public class MainMenuScript : MonoBehaviour
         controlUtils = new ControlUtils();
     }
 
-    private string[] MenuItems = { GameConstants.LEADERBOARD_ID, GameConstants.MAIN_MENU_ID};
+    private string[] MenuItems = { GameConstants.LEADERBOARD_ID, GameConstants.MAIN_MENU_ID , GameConstants.CHAT_CANVAS};
 
 
     public async void OpenLeaderBoard()
@@ -64,14 +64,26 @@ public class MainMenuScript : MonoBehaviour
     }
 
     // open loading screen scene if user cliks quit button
-    public void quitGame()
+    public void enterGlobalChat()
     {
         try
         {
-            SceneManager.LoadScene(GameConstants.LOADING_SCENE);
-        }catch(Exception ex)
+            controlUtils.SetComponentActive(2, this.MenuItems);
+            
+
+
+            /*Debug.Log(nakamaInstance.socket.ToString());
+            const string nameFilter = "global%";
+            var result = await nakamaInstance.client.ListGroupsAsync(nakamaInstance.nakamaSession, nameFilter, 20);
+            foreach (var g in result.Groups)
+            {
+               Debug.Log("Group name "+g.Name+ " count " + g.EdgeCount.ToString() + " id " + g.Id);
+            }*/
+        }
+        catch (Exception ex)
         {
             Debug.Log(ex.ToString());
         }
     }
+
 }

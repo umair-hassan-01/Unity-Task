@@ -14,7 +14,7 @@ public class ControlUtils
         
     }
 
-    // a generic function to toggle canvas
+    // a generic function to toggle canvas using index of that canvas.....
     public void SetComponentActive(int componentIndex , string[]items)
     {
         try

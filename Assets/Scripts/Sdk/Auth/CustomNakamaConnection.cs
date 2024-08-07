@@ -7,11 +7,13 @@ public class CustomNakamaConnection : MonoBehaviour
     public static CustomNakamaConnection instance;
     public IClient client;
     public ISession nakamaSession;
+    public ISocket socket;
+    public string channelId;
     
-    private string Scheme = "http";
-    private string Host = "localhost";
-    private int Port = 7350;
-    private string ServerKey = "defaultkey";
+    private string Scheme = GameConstants.SCHEME;
+    private string Host = GameConstants.HOST;
+    private int Port = GameConstants.PORT;
+    private string ServerKey =GameConstants.SERVER_KEY;
 
 
     public static CustomNakamaConnection Instance
@@ -34,6 +36,20 @@ public class CustomNakamaConnection : MonoBehaviour
         }
     }
 
+    public async void connectSocket()
+    {
+        try
+        {
+            await socket.ConnectAsync(nakamaSession, true);
+            Debug.Log("Socket is connected");
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("Exception while connecting to socket = " + ex.ToString());
+            throw ex;
+        }
+    }
+
     public void Awake()
     {
         if(instance == null)
@@ -51,5 +67,8 @@ public class CustomNakamaConnection : MonoBehaviour
     {
         Debug.Log("Oh let's get the new client");
         client = new Nakama.Client(Scheme, Host, Port, ServerKey, UnityWebRequestAdapter.Instance);
+        socket = client.NewSocket();
+        Debug.Log(socket.ToString());
+
     }
 }

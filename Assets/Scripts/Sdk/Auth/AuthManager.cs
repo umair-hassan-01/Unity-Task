@@ -22,7 +22,8 @@ public class AuthManager
             string deviceId = SystemInfo.deviceUniqueIdentifier;
             Debug.Log("Try to auth user device");
             nakamaConnection.nakamaSession =  await nakamaConnection.client.AuthenticateDeviceAsync(deviceId);
-       
+            nakamaConnection.connectSocket();
+
             Debug.Log("User device is authenticated");
         }catch(Exception ex)
         {

@@ -36,6 +36,7 @@ public class Record
 }
 
 
+// leaderboard data payload
 [Serializable]
 public class Payload
 {
