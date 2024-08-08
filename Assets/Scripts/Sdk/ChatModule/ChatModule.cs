@@ -14,6 +14,7 @@ public class ChatModule
 
     }
 
+    // to parse incoming message data
     public class Message
     {
         public string message;

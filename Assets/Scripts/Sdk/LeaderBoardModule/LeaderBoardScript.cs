@@ -39,7 +39,7 @@ public class LeaderBoardScript : MonoBehaviour
             }
             if (payload.success)
             {
-                foreach (Record record in payload.leaderBoardData.records)
+                foreach (Record record in payload.data.records)
                 {
                     Debug.Log("added");
                     var leaderBoardScoreContainer = Instantiate(tilePrefab, leaderBoardContent.transform);

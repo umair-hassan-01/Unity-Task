@@ -1,6 +1,7 @@
 ﻿using Nakama;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 
 public class CustomNakamaConnection : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class CustomNakamaConnection : MonoBehaviour
         }
     }
 
-    public async void connectSocket()
+    public async Task connectSocket()
     {
         try
         {

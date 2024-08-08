@@ -41,8 +41,7 @@ public class Record
 public class Payload
 {
     public bool success;
-    public LeaderBoardData leaderBoardData;
-    public string successMessage;
-    public string errorMessage;
+    public LeaderBoardData data;
+    public string message;
 }
 

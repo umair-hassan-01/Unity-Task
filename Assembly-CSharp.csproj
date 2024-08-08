@@ -56,10 +56,12 @@
     <Analyzer Include="/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/Scripts/Sdk/Auth/AuthScript.cs" />
     <Compile Include="Assets/Scripts/Sdk/LoadingScript/ScreenLoading.cs" />
     <Compile Include="Assets/Scripts/Sdk/Utils/RoomChatPayload.cs" />
+    <Compile Include="Assets/Scripts/Sdk/ChatModule/ChatModule.cs" />
     <Compile Include="Assets/Scripts/Sdk/SceneScripts/MainMenuScript.cs" />
+    <Compile Include="Assets/Scripts/Sdk/Utils/ConfigurationsPayload.cs" />
+    <Compile Include="Assets/Scripts/Sdk/Auth/User.cs" />
     <Compile Include="Assets/Scripts/Sdk/Auth/CustomNakamaConnection.cs" />
     <Compile Include="Assets/Scripts/Sdk/Utils/Payload.cs" />
     <Compile Include="Assets/Scripts/Sdk/Utils/ControlUtils.cs" />
@@ -69,7 +71,6 @@
     <Compile Include="Assets/NakamaConnection/NakamaServerConnection.cs" />
     <Compile Include="Assets/Scripts/Sdk/Auth/AuthManager.cs" />
     <Compile Include="Assets/Scripts/Sdk/LeaderBoardModule/LeaderBoardScript.cs" />
-    <Compile Include="Assets/Scripts/Sdk/ChatModule/ChatModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -16,6 +16,8 @@ public class MainMenuScript : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject leaderBoardContent;
 
+    public Sprite[] icons;
+
     private ControlUtils controlUtils;
     // Use this for initialization
     void Start()

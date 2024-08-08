@@ -1,21 +1,22 @@
 ﻿<Properties StartupConfiguration="{32C3BDE6-E125-3128-82C1-25D0441455A3}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Sdk/ChatModule/ChatScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Sdk/Auth/AuthManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/Sdk/Auth/AuthScript.cs" Line="13" Column="6" />
+      <File FileName="Assets/Scripts/Sdk/Auth/AuthScript.cs" Line="18" Column="29" />
       <File FileName="Assets/NakamaConnection/NakamaServerConnection.cs" />
-      <File FileName="Assets/Scripts/Sdk/Auth/AuthManager.cs" />
-      <File FileName="Assets/Scripts/Sdk/SceneScripts/MainMenuScript.cs" Line="95" Column="37" />
-      <File FileName="Assets/Scripts/Sdk/LoadingScript/ScreenLoading.cs" />
+      <File FileName="Assets/Scripts/Sdk/Auth/AuthManager.cs" Line="33" Column="65" />
+      <File FileName="Assets/Scripts/Sdk/SceneScripts/MainMenuScript.cs" Line="67" Column="12" />
+      <File FileName="Assets/Scripts/Sdk/LoadingScript/ScreenLoading.cs" Line="25" Column="38" />
       <File FileName="Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInput.cs" />
       <File FileName="Assets/NewBehaviourScript.cs" />
-      <File FileName="Assets/Scripts/Sdk/GameConstants.cs" />
-      <File FileName="Assets/Scripts/Sdk/LeaderBoardModule/LeaderBoardScript.cs" />
-      <File FileName="Assets/Scripts/Sdk/Utils/Payload.cs" />
-      <File FileName="Assets/Scripts/Sdk/Utils/ControlUtils.cs" />
-      <File FileName="Assets/Scripts/Sdk/Auth/CustomNakamaConnection.cs" Line="10" Column="27" />
-      <File FileName="Assets/Scripts/Sdk/ChatModule/ChatScript.cs" Line="13" Column="6" />
-      <File FileName="Assets/Scripts/Sdk/Utils/RoomChatPayload.cs" />
-      <File FileName="Assets/Scripts/Sdk/ChatModule/ChatModule.cs" Line="11" Column="1" />
+      <File FileName="Assets/Scripts/Sdk/GameConstants.cs" Line="19" Column="52" />
+      <File FileName="Assets/Scripts/Sdk/LeaderBoardModule/LeaderBoardScript.cs" Line="22" Column="1" />
+      <File FileName="Assets/Scripts/Sdk/Utils/Payload.cs" Line="41" Column="21" />
+      <File FileName="Assets/Scripts/Sdk/Utils/ControlUtils.cs" Line="40" Column="6" />
+      <File FileName="Assets/Scripts/Sdk/Auth/CustomNakamaConnection.cs" Line="4" Column="30" />
+      <File FileName="Assets/Scripts/Sdk/ChatModule/ChatScript.cs" Line="116" Column="33" />
+      <File FileName="Assets/Scripts/Sdk/Utils/RoomChatPayload.cs" Line="19" Column="1" />
+      <File FileName="Assets/Scripts/Sdk/ChatModule/ChatModule.cs" Line="32" Column="12" />
+      <File FileName="Assets/Scripts/Sdk/Utils/NewClass.cs" Line="12" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -24,17 +25,20 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="Sdk" expanded="True">
-                  <Node name="Auth" expanded="True" />
-                  <Node name="ChatModule" expanded="True">
-                    <Node name="ChatScript.cs" selected="True" />
+                  <Node name="Auth" expanded="True">
+                    <Node name="AuthManager.cs" selected="True" />
                   </Node>
-                  <Node name="LeaderBoardModule" expanded="True" />
-                  <Node name="SceneScripts" expanded="True" />
+                  <Node name="ChatModule" expanded="True" />
+                  <Node name="LoadingScript" expanded="True" />
+                  <Node name="Utils" expanded="True" />
                 </Node>
               </Node>
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

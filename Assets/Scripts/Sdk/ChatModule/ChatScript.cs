@@ -4,16 +4,19 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 using Nakama;
+using System.Linq;
 
 public class ChatScript : MonoBehaviour
 {
     private ChatModule chatModule;
     private CustomNakamaConnection nakamaInstance;
+    private User userObj;
 
     public GameObject senderMessageTemplate;
     public GameObject receiveMessageTemplate;
     public GameObject messageContent;
 
+    public Sprite[] icons; 
     private Queue<IApiChannelMessage> pendingMessages;
 
     // Use this for initialization
@@ -23,6 +26,7 @@ public class ChatScript : MonoBehaviour
         chatModule = new ChatModule();
         nakamaInstance = CustomNakamaConnection.Instance;
         this.pendingMessages = new Queue<IApiChannelMessage>();
+        userObj = new User();
     }
 
     private void Update()
@@ -41,7 +45,7 @@ public class ChatScript : MonoBehaviour
 
     }
 
-    public void populateChatContent(IApiChannelMessage channelMessage)
+    public async void populateChatContent(IApiChannelMessage channelMessage)
     {
         try
         {
@@ -56,11 +60,15 @@ public class ChatScript : MonoBehaviour
             }
 
             var parsedMessage = JsonUtility.FromJson<ChatModule.Message>(channelMessage.Content);
-            
+
+            // get details of current user to fill out UI....
+            var userAccount = await userObj.fetchUserAccount(channelMessage.SenderId);
+           
             if (messageTile != null)
             {
                 messageTile.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = parsedMessage.message;
-                messageTile.transform.GetChild(2).GetComponent<Text>().text = channelMessage.Username;
+                messageTile.transform.GetChild(2).GetComponent<Text>().text = userAccount.displayName;
+                messageTile.transform.GetChild(1).GetComponent<Image>().sprite = GameObject.Find("BasicSceneControls").GetComponent<MainMenuScript>().icons[userAccount.avatarUrl];
             }
             
         }catch(Exception ex)
@@ -90,6 +98,12 @@ public class ChatScript : MonoBehaviour
     {
         try
         {
+            // first remove old messages to avoid replication
+            foreach(Transform child in this.messageContent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
             var result = await nakamaInstance.client.ListChannelMessagesAsync(nakamaInstance.nakamaSession, channelId, 100, true);
 
             lock (pendingMessages)
@@ -117,6 +131,8 @@ public class ChatScript : MonoBehaviour
             var channel = await nakamaInstance.socket.JoinChatAsync(groupId, ChannelType.Room, persistence, hidden);
             nakamaInstance.channelId = channel.Id;
 
+            this.populateOldMessages(channel.Id);
+
             // handles incoming messages in channel
             nakamaInstance.socket.ReceivedChannelMessage += message =>
             {
@@ -125,8 +141,6 @@ public class ChatScript : MonoBehaviour
                     pendingMessages.Enqueue(message);
                 }
             };
-
-            this.populateOldMessages(channel.Id);
 
         }
         catch (Exception ex)
