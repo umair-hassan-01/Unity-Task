@@ -21,7 +21,7 @@ class User
         public SimplifedUser(string userName)
         {
             this.userName = userName;
-            this.displayName = "defaultuser";
+            this.displayName = userName;
             this.avatarUrl = 0;
         }
     }

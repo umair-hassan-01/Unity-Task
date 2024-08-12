@@ -27,7 +27,6 @@ public class AuthManager
             bool createNew = true;
 
             nakamaConnection.nakamaSession =  await nakamaConnection.client.AuthenticateDeviceAsync(deviceId , userName , createNew);
-            await nakamaConnection.connectSocket();
 
             Debug.Log("User device is authenticated");
         }catch(Exception ex)

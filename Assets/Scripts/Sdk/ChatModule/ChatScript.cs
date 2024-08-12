@@ -1,23 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System;
 using UnityEngine.UI;
 using Nakama;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class ChatScript : MonoBehaviour
 {
     private ChatModule chatModule;
     private CustomNakamaConnection nakamaInstance;
-    private User userObj;
 
-    public GameObject senderMessageTemplate;
-    public GameObject receiveMessageTemplate;
-    public GameObject messageContent;
+    public InputField messageInputTextField;
+    public Text groupName;
 
-    public Sprite[] icons; 
-    private Queue<IApiChannelMessage> pendingMessages;
+    public MainMenuScript mainMenuScript;
+    private ConcurrentQueue<IApiChannelMessage> pendingMessages;
+
+    public ChatUI chatUI;
+
+    public static int listening = 0;
 
     // Use this for initialization
     void Start()
@@ -25,55 +29,26 @@ public class ChatScript : MonoBehaviour
         Debug.Log("Chat is starting");
         chatModule = new ChatModule();
         nakamaInstance = CustomNakamaConnection.Instance;
-        this.pendingMessages = new Queue<IApiChannelMessage>();
-        userObj = new User();
+        this.pendingMessages = new ConcurrentQueue<IApiChannelMessage>();
     }
 
-    private void Update()
+
+    private async void Update()
     {
-        if (pendingMessages != null)
+        // check if socket is still connected....
+        if (!nakamaInstance.socket.IsConnected)
         {
-            lock (pendingMessages)
-            {
-                while (pendingMessages.Count > 0)
-                {
-                    populateChatContent(pendingMessages.Peek());
-                    pendingMessages.Dequeue();
-                }
-            }
+            await nakamaInstance.connectSocket(mainMenuScript);
         }
 
-    }
-
-    public async void populateChatContent(IApiChannelMessage channelMessage)
-    {
-        try
+        IApiChannelMessage currentMessage;
+        if(pendingMessages != null)
         {
-            GameObject messageTile = null;
-            if (channelMessage.SenderId.Equals(nakamaInstance.nakamaSession.UserId))
+            while(this.pendingMessages.Count > 0)
             {
-                messageTile = Instantiate(senderMessageTemplate, messageContent.transform);
+                bool canDequeue = pendingMessages.TryDequeue(out currentMessage);
+                await chatUI.populateChatContent(currentMessage , chatModule);
             }
-            else
-            {
-                messageTile = Instantiate(receiveMessageTemplate, messageContent.transform);
-            }
-
-            var parsedMessage = JsonUtility.FromJson<ChatModule.Message>(channelMessage.Content);
-
-            // get details of current user to fill out UI....
-            var userAccount = await userObj.fetchUserAccount(channelMessage.SenderId);
-           
-            if (messageTile != null)
-            {
-                messageTile.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = parsedMessage.message;
-                messageTile.transform.GetChild(2).GetComponent<Text>().text = userAccount.displayName;
-                messageTile.transform.GetChild(1).GetComponent<Image>().sprite = GameObject.Find("BasicSceneControls").GetComponent<MainMenuScript>().icons[userAccount.avatarUrl];
-            }
-            
-        }catch(Exception ex)
-        {
-            Debug.Log(ex);
         }
     }
 
@@ -81,12 +56,9 @@ public class ChatScript : MonoBehaviour
     {
         try
         {
-            Debug.Log("I will send chat message");
-            var inputField = GameObject.Find("SendMessageField");
-            string message = inputField.GetComponent<InputField>().text;
-            
+            string message = messageInputTextField.text;
             chatModule.sendMessage(nakamaInstance.channelId, message , nakamaInstance.socket);
-            inputField.GetComponent<InputField>().text = "";
+            messageInputTextField.text = "";
 
         }catch(Exception ex)
         {
@@ -94,24 +66,20 @@ public class ChatScript : MonoBehaviour
         }
     }
 
-    public async void populateOldMessages(string channelId)
+    public async void getOldMessages(string channelId)
     {
         try
         {
-            // first remove old messages to avoid replication
-            foreach(Transform child in this.messageContent.transform)
-            {
-                Destroy(child.gameObject);
-            }
+            // first clear the canvas....
+            chatUI.clearChatCanvas();
+
+            // also clear the cache
+            chatModule.clearUserInfoCache();
 
             var result = await nakamaInstance.client.ListChannelMessagesAsync(nakamaInstance.nakamaSession, channelId, 100, true);
-
-            lock (pendingMessages)
+            foreach (var message in result.Messages)
             {
-                foreach (var message in result.Messages)
-                {
-                    pendingMessages.Enqueue(message);
-                }
+                pendingMessages.Enqueue(message);
             }
 
         }catch(Exception ex)
@@ -120,32 +88,70 @@ public class ChatScript : MonoBehaviour
         }
     }
 
-    // setup initial chat environment(joining group , group name , group id , fetching old messages etc.)
-    public async void setChatEnvironment()
+    public async void handleDirectChat(string otherUserId)
     {
         try
         {
-            string groupId = GameConstants.GLOBAL_CHAT_ROOM;
+            string firstId = nakamaInstance.nakamaSession.UserId;
+            string secondId = otherUserId;
+            string channelId = chatModule.generateChannelId(firstId, secondId);
+
+            var userInfo = await chatModule.getUserInfo(otherUserId);
+            chatUI.setGroupBanner(userInfo.Key, userInfo.Value);
+
+            mainMenuScript.enterGlobalChat();
+            await setChatEnvironment(channelId);
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("Exception in handleDirectChat = " + ex);
+        }
+    }
+
+    public async void handleGlobalChat()
+    {
+        try
+        {
+            chatUI.setGroupBanner("Global Room", 1);
+            await setChatEnvironment(GameConstants.GLOBAL_CHAT_ROOM);
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("Exception in handleGlobalChat = " + ex);
+        }
+    }
+
+    // setup initial chat environment(joining group , group name , group id , fetching old messages etc.)
+    public async Task setChatEnvironment(string channelId)
+    {
+        try
+        {
+            
+            string groupId = channelId;
             bool persistence = true;
             bool hidden = false;
             var channel = await nakamaInstance.socket.JoinChatAsync(groupId, ChannelType.Room, persistence, hidden);
             nakamaInstance.channelId = channel.Id;
+            Debug.Log("Channel id = " + channelId);
 
-            this.populateOldMessages(channel.Id);
+            this.getOldMessages(channel.Id);
 
             // handles incoming messages in channel
-            nakamaInstance.socket.ReceivedChannelMessage += message =>
+            if (listening == 0)
             {
-                lock (pendingMessages)
+                nakamaInstance.socket.ReceivedChannelMessage += message =>
                 {
+                    Debug.Log("Got message " + DateTime.Now);
+                    // delegate message to execute on Main Thread
                     pendingMessages.Enqueue(message);
-                }
-            };
+                };
+                listening++;
+            }
 
         }
         catch (Exception ex)
         {
-            Debug.Log(ex);
+            Debug.Log("Error in setChatEnvironment = " + ex);
         }
     }
 

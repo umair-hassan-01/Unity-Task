@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2107851896462290604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2040843258251020979}
+  - component: {fileID: 578219305360482682}
+  - component: {fileID: 578219305360482681}
+  - component: {fileID: 578219305360482680}
+  - component: {fileID: 578219305360482687}
+  - component: {fileID: 578219305360482686}
+  m_Layer: 0
+  m_Name: BasicSceneControls 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2040843258251020979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107851896462290604}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &578219305360482682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107851896462290604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df21ab373e89341f99931e4daed27ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 4873468131913430492, guid: 12abada910eef41c8ac49056533a075d, type: 3}
+  leaderBoardContent: {fileID: 0}
+  userInformationContainer: {fileID: 0}
+  icons:
+  - {fileID: 21300000, guid: 76702702ad09d4a81bf9c4f3b26e3da4, type: 3}
+  - {fileID: 21300000, guid: 78ae0a8db5ee84b1c93ad68370b01a0e, type: 3}
+  - {fileID: 21300000, guid: ee2fa66d043ee43beaef44c4cdbf05c6, type: 3}
+  - {fileID: 21300000, guid: 737c8e10271a3481cb5a20cb6aa7bfed, type: 3}
+  - {fileID: 21300000, guid: 7b0eb996cb93c450186a70ed12688f63, type: 3}
+  - {fileID: 21300000, guid: 60556239bf7794db3a65e8a4a5ab6c7a, type: 3}
+--- !u!114 &578219305360482681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107851896462290604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0c2c9ad32b54442b1a6faff9906675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nakamaInstance: {fileID: 0}
+--- !u!114 &578219305360482680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107851896462290604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b46bb3a91db4f56ba96d58916d76fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &578219305360482687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107851896462290604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b1993b933754d338160097253d02e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  senderMessageTemplate: {fileID: 2640271347146546700, guid: 7e7b68312376945c28eb515874eb1b95, type: 3}
+  receiveMessageTemplate: {fileID: 432926822557650743, guid: 175de8f9233ba4e45be4c56130995e17, type: 3}
+  messageContent: {fileID: 0}
+  icons: []
+--- !u!114 &578219305360482686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107851896462290604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb2788cfa07a4b3ebda42ae1577c326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableImagesContent: {fileID: 0}
+  availableImageTemplate: {fileID: 6786852945930773145, guid: 57c5fbfdbe4f74e82954ddbd44f57604, type: 3}
+  editableName: {fileID: 0}
+  userImage: {fileID: 0}
+  avatarIndex: 0

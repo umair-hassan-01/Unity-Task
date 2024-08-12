@@ -56,6 +56,12 @@ public class LeaderBoardScript : MonoBehaviour
 
                     leaderBoardScoreContainer.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = record.score.ToString();
                     leaderBoardScoreContainer.transform.GetChild(2).GetComponent<Image>().enabled = true;
+
+                    string otherUserId = record.ownerId;
+                    leaderBoardScoreContainer.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(() =>
+                    {
+                        GameObject.Find("BasicSceneControls").GetComponent<ChatScript>().handleDirectChat(otherUserId);
+                    });
                 }
             }
 

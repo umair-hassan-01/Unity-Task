@@ -15,20 +15,39 @@ public class MainMenuScript : MonoBehaviour
 
     public GameObject tilePrefab;
     public GameObject leaderBoardContent;
+    public GameObject userInformationContainer;
 
     public Sprite[] icons;
 
     private ControlUtils controlUtils;
+    private User userObj;
+
+    private string[] MenuItems = {
+        GameConstants.LEADERBOARD_ID,
+        GameConstants.MAIN_MENU_ID ,
+        GameConstants.CHAT_CANVAS,
+        GameConstants.EDIT_USER_CANVAS
+    };
+
     // Use this for initialization
     void Start()
     {
         nakamaInstance = CustomNakamaConnection.Instance;
         leaderBoardScript = gameObject.AddComponent<LeaderBoardScript>();
         controlUtils = new ControlUtils();
+        userObj = new User();
+        OpenMainMenu();
+
     }
 
-    private string[] MenuItems = { GameConstants.LEADERBOARD_ID, GameConstants.MAIN_MENU_ID , GameConstants.CHAT_CANVAS};
+    private void Update()
+    {
+        if(nakamaInstance.client == null || nakamaInstance.nakamaSession == null || nakamaInstance.nakamaSession.IsExpired)
+        {
+            SceneManager.LoadScene(GameConstants.LOADING_SCENE);
+        }
 
+    }
 
     public async void OpenLeaderBoard()
     {
@@ -36,7 +55,7 @@ public class MainMenuScript : MonoBehaviour
         {
             // first enable the leaderboard canvas
             controlUtils.SetComponentActive(0,this.MenuItems);
-            if(!tilePrefab || !leaderBoardContent)
+            if (!tilePrefab || !leaderBoardContent)
             {
                 Debug.LogError("tileprefab or leaderboard content is null in main menu script");
                 return;
@@ -53,11 +72,15 @@ public class MainMenuScript : MonoBehaviour
         }
     }
 
-    public void OpenMainMenu()
+    public async void OpenMainMenu()
     {
         try
         {
             controlUtils.SetComponentActive(1 , this.MenuItems);
+            // fetch user account and display user data also
+            var currentUser = await userObj.fetchUserAccount(nakamaInstance.nakamaSession.UserId);
+            userInformationContainer.transform.GetChild(1).GetComponent<Text>().text = currentUser.displayName;
+            userInformationContainer.transform.GetChild(0).GetComponent<Image>().sprite = GameObject.Find("BasicSceneControls").GetComponent<MainMenuScript>().icons[currentUser.avatarUrl];
         }
         catch (Exception ex)
         {
@@ -65,26 +88,31 @@ public class MainMenuScript : MonoBehaviour
         }
     }
 
-    // open loading screen scene if user cliks quit button
+    public void openEditUserCanvas()
+    {
+        try
+        {
+            controlUtils.SetComponentActive(3, this.MenuItems);
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("Exception in openEditUserCanvas = " + ex.ToString());
+        }
+    }
+
+    
     public void enterGlobalChat()
     {
         try
         {
+            Debug.Log("try to enable canvas at index " + 2);
+            Debug.Log(this.MenuItems);
             controlUtils.SetComponentActive(2, this.MenuItems);
-            
-
-
-            /*Debug.Log(nakamaInstance.socket.ToString());
-            const string nameFilter = "global%";
-            var result = await nakamaInstance.client.ListGroupsAsync(nakamaInstance.nakamaSession, nameFilter, 20);
-            foreach (var g in result.Groups)
-            {
-               Debug.Log("Group name "+g.Name+ " count " + g.EdgeCount.ToString() + " id " + g.Id);
-            }*/
+           
         }
         catch (Exception ex)
         {
-            Debug.Log(ex.ToString());
+            Debug.Log("Issue in enterGlobalChat = " + ex.ToString());
         }
     }
 

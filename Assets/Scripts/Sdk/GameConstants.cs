@@ -7,6 +7,8 @@ public static class GameConstants
     public static string MAIN_MENU_ID = "MainMenuCanvas";
     public static string LEADERBOARD_ID = "LeaderBoardCanvas";
     public static string CHAT_CANVAS = "ChatCanvas";
+    public static string EDIT_USER_CANVAS = "EditUserCanvas";
+
     public static string QUIT_BUTTON_ID = "";
 
     public static string LOADING_SCENE = "LoadingScene";
@@ -18,5 +20,5 @@ public static class GameConstants
 
     public static string GLOBAL_LEADER_BOARD = "102pl";
 
-    public static string GLOBAL_CHAT_ROOM = "globalroom";
+    public static string GLOBAL_CHAT_ROOM = "GlobalRoom";
 }
